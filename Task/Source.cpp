@@ -3,17 +3,17 @@
 std::vector<cv::KeyPoint> detectFAST(const cv::Mat& image, int threshold) {
     std::vector<cv::KeyPoint> keypoints;
 
-    // Використовуємо cv::Ptr для створення об'єкту детектора FAST
+    // Use cv::P tr to create a FAST detector object
     cv::Ptr<cv::FastFeatureDetector> detector = cv::FastFeatureDetector::create(threshold);
 
-    // Застосовуємо детектор до зображення
+    // Apply the detector to the image
     detector->detect(image, keypoints);
 
     return keypoints;
 }
 
 int main() {
-    // Зчитуємо зображення
+    // Reading the image
     cv::Mat image = cv::imread("C:\\Users\\Acer\\OneDrive\\Desktop\\1.jpg", cv::IMREAD_GRAYSCALE);
 
 
@@ -22,17 +22,17 @@ int main() {
         return -1;
     }
 
-    // Встановлюємо поріг для детектора FAST
+    // Setting the threshold for the FAST detector
     int threshold = 50;
 
-    // Детектуємо ключові точки
+    // Detecting key points
     std::vector<cv::KeyPoint> keypoints = detectFAST(image, threshold);
 
-    // Візуалізуємо результат
+    // Visualize the result
     cv::Mat imageWithKeypoints;
     cv::drawKeypoints(image, keypoints, imageWithKeypoints, cv::Scalar::all(-1), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
-    // Відображаємо зображення з ключовими точками
+    // Display images with key points
     cv::imshow("FAST Keypoints", imageWithKeypoints);
     cv::waitKey(0);
 
