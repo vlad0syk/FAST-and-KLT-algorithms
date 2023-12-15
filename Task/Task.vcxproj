@@ -136,7 +136,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\Acer\OneDrive\Desktop\1.jpg" />
+    <Image Include="C:\Users\Acer\OneDrive\Desktop\4.gif" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

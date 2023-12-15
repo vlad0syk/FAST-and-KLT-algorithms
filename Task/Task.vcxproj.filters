@@ -23,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\Acer\OneDrive\Desktop\1.jpg">
+    <Image Include="C:\Users\Acer\OneDrive\Desktop\4.gif">
       <Filter>Resource Files\images</Filter>
     </Image>
   </ItemGroup>

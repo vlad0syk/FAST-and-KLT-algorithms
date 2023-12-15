@@ -1,39 +1,36 @@
 #include <opencv2/opencv.hpp>
 
-std::vector<cv::KeyPoint> detectFAST(const cv::Mat& image, int threshold) {
-    std::vector<cv::KeyPoint> keypoints;
-
-    // Use cv::P tr to create a FAST detector object
-    cv::Ptr<cv::FastFeatureDetector> detector = cv::FastFeatureDetector::create(threshold);
-
-    // Apply the detector to the image
-    detector->detect(image, keypoints);
-
-    return keypoints;
-}
-
 int main() {
-    // Reading the image
-    cv::Mat image = cv::imread("C:\\Users\\Acer\\OneDrive\\Desktop\\1.jpg", cv::IMREAD_GRAYSCALE);
+    // Read a video stream or video file
+    cv::VideoCapture cap("C:\\Users\\Acer\\OneDrive\\Desktop\\4.gif"); // 0 for the webcam, or you can specify the path to the video file
 
-
-    if (image.empty()) {
-        std::cerr << "Unable to read the image." << std::endl;
+    if (!cap.isOpened()) {
+        std::cerr << "Error: Unable to open the video source." << std::endl;
         return -1;
     }
 
-    // Setting the threshold for the FAST detector
-    int threshold = 50;
+    cv::Mat frame;
+    cv::Mat gray;
 
-    // Detecting key points
-    std::vector<cv::KeyPoint> keypoints = detectFAST(image, threshold);
+    // Reading the first frame to get the dimensions
+    cap >> frame;
 
-    // Visualize the result
-    cv::Mat imageWithKeypoints;
-    cv::drawKeypoints(image, keypoints, imageWithKeypoints, cv::Scalar::all(-1), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+    // Convert a color frame to grayscale
+    cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
 
-    // Display images with key points
-    cv::imshow("FAST Keypoints", imageWithKeypoints);
+    // Defining the Angle Tracker
+    std::vector<cv::Point2f> corners;
+    cv::goodFeaturesToTrack(gray, corners, 100, 0.01, 10);
+
+    // Let's display the found angles in the original image
+    for (const auto& corner : corners) {
+        cv::circle(frame, corner, 5, cv::Scalar(0, 255, 0), -1);
+    }
+
+    // Display the Output Frame with Corners
+    cv::imshow("Corners", frame);
+
+    // Waiting for the key to be pressed before exiting
     cv::waitKey(0);
 
     return 0;
